@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Artist.Name}}</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="studio-bg bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-white shadow mb-8 sticky top-0">
+      <div
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <h1 class="text-3xl font-bold">{{.Artist.Name}}</h1>
+        <a href="/" class="text-blue-600 hover:text-blue-800 font-medium"
+          >&larr; Back to Artists</a
+        >
+      </div>
+    </header>
+
+    <main class="container mx-auto px-6 pb-12">
+      <!-- Artist Overview -->
+      <div
+        class="bg-white rounded-lg shadow p-6 mb-8 flex flex-col lg:flex-row items-center gap-6"
+      >
+        <img
+          src="{{.Artist.Image}}"
+          alt="{{.Artist.Name}}"
+          class="w-48 h-48 object-cover rounded-lg"
+        />
+        <div class="flex-1 space-y-2">
+          <p><strong>Creation Date:</strong> {{.Artist.CreationDate}}</p>
+          <p><strong>First Album:</strong> {{.Artist.FirstAlbum}}</p>
+        </div>
+      </div>
+
+      <!-- Details Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Members -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">Members</h2>
+          <ul class="list-disc list-inside space-y-1">
+            {{range .Artist.Members}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+
+        <!-- Locations -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">Concert Locations</h2>
+          {{if .Locations.Locations}}
+          <ul class="list-disc list-inside space-y-1">
+            {{range .Locations.Locations}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+          {{else}}
+          <p class="text-gray-500">No locations available.</p>
+          {{end}}
+        </div>
+
+        <!-- Dates -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-semibold mb-4">Concert Dates</h2>
+          {{if .Dates.Dates}}
+          <ul class="list-disc list-inside space-y-1">
+            {{range .Dates.Dates}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+          {{else}}
+          <p class="text-gray-500">No dates available.</p>
+          {{end}}
+        </div>
+
+        <!-- Combined Dates & Locations -->
+        <div class="bg-white rounded-lg shadow p-6 lg:col-span-3">
+          <h2 class="text-xl font-semibold mb-4">Concert Dates & Locations</h2>
+          {{if .Relations.DatesLocations}}
+          <div class="space-y-6">
+            {{range $location, $dates := .Relations.DatesLocations}}
+            <div>
+              <h3 class="text-lg font-medium">{{$location}}</h3>
+              <ul class="list-disc list-inside ml-4 space-y-1">
+                {{range $dates}}
+                <li>{{.}}</li>
+                {{end}}
+              </ul>
+            </div>
+            {{end}}
+          </div>
+          {{else}}
+          <p class="text-gray-500">No concert dates or locations available.</p>
+          {{end}}
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

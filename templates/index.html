@@ -17,32 +17,19 @@
 
   <main>
     <section id="bands">
-      <p class="band-count">Now Showing: <span id="bandCount">{{if .IsSingleArtist}}1{{else}}{{len .Artists}}{{end}}</span> Headliners</p>
+      <p class="band-count">Now Showing: <span id="bandCount">{{len .}} Headliners</span></p> <!-- Используем len . для отображения количества артистов -->
       <div id="bandCards">
-        {{if .IsSingleArtist}}
-          <a class="band-card-link" href="/artist/{{.Artist.ID}}" data-id="{{.Artist.ID}}">
+        {{range .}} <!-- Итерируем по артистам -->
+          <a class="band-card-link" href="/artist/{{.ID}}" data-id="{{.ID}}">
             <div class="band-card">
               <div class="band-header">
-                <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" onerror="this.onerror=null;this.src='https://placehold.co/300x300/1f2937/e5e7eb?text=No+Photo';">
+                <img src="{{.Image}}" alt="{{.Name}}" onerror="this.onerror=null;this.src='https://placehold.co/300x300/1f2937/e5e7eb?text=No+Photo';">
                 <div class="band-name-overlay">
-                  <h2>{{.Artist.Name}}</h2>
+                  <h2>{{.Name}}</h2>
                 </div>
               </div>
             </div>
           </a>
-        {{else}}
-          {{range .Artists}}
-            <a class="band-card-link" href="/artist/{{.ID}}" data-id="{{.ID}}">
-              <div class="band-card">
-                <div class="band-header">
-                  <img src="{{.Image}}" alt="{{.Name}}" onerror="this.onerror=null;this.src='https://placehold.co/300x300/1f2937/e5e7eb?text=No+Photo';">
-                  <div class="band-name-overlay">
-                    <h2>{{.Name}}</h2>
-                  </div>
-                </div>
-              </div>
-            </a>
-          {{end}}
         {{end}}
       </div>
     </section>

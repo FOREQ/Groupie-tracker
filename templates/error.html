@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.ErrorCode}}</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg text-center p-10 max-w-md mx-4">
+      <img
+        src="{{if eq .ErrorCode 500}}/static/internalerror.gif{{else}}/static/error.gif{{end}}"
+        alt="Error {{.ErrorCode}}"
+        class="mx-auto mb-6 max-w-md w-full object-contain"
+      />
+      <h1 class="text-4xl font-bold mb-4 text-gray-800">{{.ErrorMessage}}</h1>
+      <p class="text-gray-600 mb-6">
+        I can't point you in the right direction, but I can at least bring you
+        back
+        <a href="/" class="text-blue-600 hover:text-blue-800 font-medium"
+          >home</a
+        >.
+      </p>
+    </div>
+  </body>
+</html>
